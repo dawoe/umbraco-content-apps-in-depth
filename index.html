@@ -1,0 +1,376 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>A journey into the unknown</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="lib/css/colours-theme.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section class="dark-bg-slide" data-background-image="lib/images/roadahead.jpg" data-background-transition="convex">
+				<h1>A journey into the unknown</h1>
+			</section>
+			<section>
+				<h2>Introduction</h2>
+				<ul>
+					<li>Dave Woestenborghs</li>
+					<li>Work at Colours (
+						<a href="http://www.colours.nl" target="_blank" rel="noreferrer">http://colours.nl</a>)</li>
+					<li>Umbraco MVP (3x)</li>					
+					<li>Member of the Umbraco PR team</li>					
+				</ul>
+			</section>
+			<section>
+				<h2>Disclaimer (1/2)</h2>				
+				<img class="fragment" src="lib/images/daveception.png" width="400" />
+			</section>
+			<section>
+				<h2>Disclaimer (2/2)</h2>
+				<p>There maybe be some swearing</p>
+				<p class="fragment">... because of demo failures</p>
+			</section>
+			<section>
+				<h2>What will we cover</h2>
+				<ul>
+					<li class="fragment">Tweaking content editing experience</li>
+					<li class="fragment">Hooking into the request pipeline</li>
+					<li class="fragment">Usefull tips for package developers</li>
+				</ul>
+			</section>
+			<section class="dark-bg-slide" data-background-image="lib/images/code.jpg"  data-background-transition="convex">
+				<h1>Tweaking content editing experience</h1>
+			</section>
+			<section>
+				<h2>Often Hacky-ish solutions</h2>
+				<ul>
+					<li>Angular interceptors, ...</li>
+					<li>C# DelegatingHandler</li>
+				</ul>
+			</section>
+			<section>
+				<h2>EditorModelEventManager</h2>
+				<p>The EditorModelEventManager class is used to emit events that enable you to manipulate the model used by the backoffice before it is loaded into the editor </p>
+			</section>
+			<section>
+				<h2>EditorModelEventManager</h2>
+				<p>Introduced in Umbraco 7.4 (January 2016)</p>
+				<p>Documented in November 2017</p>
+			</section>		
+			<section>
+				<h2>EditorModelEventManager Events</h2>				
+				<ul>
+					<li>SendingContentModel</li>
+					<li>SendingMediaModel</li>
+					<li>SendingMemberModel</li>
+					<li>SendingUserModel (v7.7.10)</li>
+				</ul>
+			</section>
+			
+			<section>
+				<h2>EditorModelEventManager Events</h2>
+				<pre class="small"><code class="csharp" data-trim contenteditable>
+					public class MyEventHandler : ApplicationEventHandler
+					{
+						protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, 
+							ApplicationContext applicationContext)
+						{
+							EditorModelEventManager.SendingContentModel += 
+								EditorModelEventManager_SendingContentModel;   
+						}            
+
+						private void EditorModelEventManager_SendingContentModel(
+							System.Web.Http.Filters.HttpActionExecutedContext sender, 
+							EditorModelEventArgs&lt;Umbraco.Web.Models.ContentEditing.ContentItemDisplay&gt; e)
+						{
+							var contentItemDisplay = e.Model;
+							var context = e.UmbracoContext;            							
+						}
+					}
+											</code></pre>
+			</section>		
+			<section>
+				<h2>Demo</h2>				
+				<ul class="fragment">
+					<li>Disable previewing</li>
+					<li>Changing tab names</li>
+					<li>Hiding tabs & properties</li>
+					<li>Changing view of property</li>
+					<li>Set default value</li>
+				</ul>
+			</section>
+			<section class="dark-bg-slide" data-background-image="lib/images/pipeline.jpg" data-background-transition="convex">
+				<h1>Hooking into the request pipeline</h1>
+			</section>
+			<section>
+				<h2>Content finders</h2>
+				<p>Probably the most used way to hook in to the incoming pipeline. Often in combination with a UrlProvider</p>
+			</section>
+			<section>
+				<h2>Content finders considerations</h2>				
+				<ul>
+					<li class="fragment">Run on every incoming request that does not match the url of a content item</li>
+					<li class="fragment">Possible performance bottleneck</li>					
+				</ul>
+			</section>
+			<section class="dark-bg-slide" data-background-image="lib/images/route.jpg" data-background-transition="convex">
+				<h1>Custom routes</h1>
+			</section>
+			<section>
+				<h2>Custom routes</h2>
+				<p>You can specify your own custom MVC routes to work within the Umbraco pipeline. This requires you to use an implementation of <code>Umbraco.Web.Mvc.UmbracoVirtualNodeRouteHandler </code> with your custom route.</p>
+			</section>
+			<section>
+				<h2>UmbracoVirtualNode&shy;RouteHandler</h2>
+				<p>You need to create a implementation of <code>UmbracoVirtualNodeRouteHandler</code> and implemented the <code>FindContent</code> method</p>
+			</section>			
+			
+			<section>
+				<h2>Register the route</h2>
+				<pre class="small"><code class="csharp" data-trim contenteditable>
+					public class VirtualRouteEvents : ApplicationEventHandler
+					{          
+						protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication,
+							 ApplicationContext applicationContext)
+						{
+							RouteTable.Routes.MapUmbracoRoute(
+									"order_status",
+									"orderstatus/{orderId}",
+									new { controller = "OrderStatus", action = "OrderStatus" },
+									new OrderStatusRouteHanlder());							
+						}  
+					}
+											</code></pre>
+			</section>
+			<section>
+				<h2>Setup a controller for the route</h2>
+				<pre class="small"><code class="csharp" data-trim contenteditable>
+					public class OrderStatusController : RenderMvcController
+					{
+						public ActionResult OrderStatus(RenderModel model, string orderId)
+						{
+							// do something based on order id
+			
+							return this.View("OrderStatus", model: content);
+						}
+					}
+											</code></pre>
+			</section>
+			<section>
+				<h2>Demo</h2>				
+				<ul class="fragment">
+					<li>Custom routing</li>					
+				</ul>
+			</section>
+			<section>
+				<h2>UmbracoVirtualNodeById&shy;RouteHandler</h2>
+				<p>A route handler where you can set the id of a content item in the constructor and doesn't require you to implement the find content method</p>
+			</section>
+			<section>
+				<h2>Content Finders vs Custom routes</h2>
+				<ul>
+					<li class="fragment">Content finders better for urls depending on content structure</li>
+					<li class="fragment">Custom routes better for (partially) fixed urls</li>
+					<li class="fragment">Custom routes support Url.Action</li>
+					<li class="fragment">Custom routes skip the request pipeline</li>
+				</ul>
+			</section>
+			<section>
+				<h2>But ... </h2>
+				<p class="fragment">What if we want to change the content based on something else than url</p>
+				<p class="fragment">eg... a using different content or template depending on the browser</p>
+			</section>	
+			<section class="dark-bg-slide" data-background-image="lib/images/checklist.jpg" data-background-transition="convex">
+				<h1>The end of the pipeline</h1>
+			</section>					
+			<section>
+				<h2>PublishedContentRequest<br/>.Prepared event</h2>
+				<p> Triggers once the published content request has been prepared, but before it is processed.</p>
+			</section>
+			<section>
+				<h2>PublishedContentRequest<br/>.Prepared event</h2>
+				<p>When the event triggers, preparation is done ie domain, culture, document, template,
+					rendering engine, etc. have been setup. It is then possible to change anything, before
+					the request is actually processed and rendered by Umbraco.</p>
+			</section>
+			<section>
+					<h2>Demo</h2>				
+					<ul class="fragment">
+						<li>Changing the template for mobile browser</li>
+						<li>Change the content based on content setting</li>
+					</ul>
+			</section>
+			<section class="dark-bg-slide" data-background-image="lib/images/packages.png" data-background-transition="convex">
+				<h1>Package developer tips</h1>
+				<h3>(Can be used in projects too)</h3>
+			</section>
+			<section>
+				<h2>Package developer problems</h2>
+				<ul>
+					<li class="fragment">Easy install and upgrades</li>
+					<li class="fragment">Making them extendable</li>
+				</ul>
+			</section>
+			<section class="dark-bg-slide" data-background-image="lib/images/migration.jpg" data-background-transition="convex">
+				<h1>Migrations</h1>				
+			</section>
+			<section>
+				<h2>Setup on installation/upgrades</h2>				
+				<ul>					
+					<li class="fragment">Use package actions</li>					
+					<li class="fragment">Run code on startup</li>
+					<li class="fragment">Becomes a mess with upgrades</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Use migrations</h2>
+				<ul>
+					<li class="fragment">Part of Umbraco core</li>
+					<li class="fragment">Public since 7.3.0</li>
+					<li class="fragment">Runs once on each environment</li>					
+				</ul>
+			</section>
+			<section>
+				<h2>Migration</h2>
+				<pre class="small"><code class="csharp" data-trim contenteditable>
+					[Migration("1.0.0", 1, "DUUG")]
+					public class CreateDuugFestTable : MigrationBase
+					{											
+						public override void Up()
+						{
+							this.Create.Table("DuugFestAttendee")
+								.WithColumn("Id").AsInt32().Identity().PrimaryKey("PK_DuugFestAttendee")
+								.WithColumn("Name").AsString(100).NotNullable()
+								.WithColumn("HasRunV5").AsBoolean();
+						}					
+					}
+											</code></pre>
+			</section>
+			<section>
+				<h2>Running migrations</h2>
+				<pre class="small"><code class="csharp" data-trim contenteditable>					
+					SemVersion targetVersion = new SemVersion(1, 0, 0, string.Empty, null); ;
+       
+					var latestMigration = applicationContext.MigrationEntryService.GetAll("DUUG")
+							.OrderByDescending(x => x.Version).FirstOrDefault();
+					
+					if (latestMigration == null || targetVersion == latestMigration.Version)
+					{
+						return;
+					}              
+
+					var migrationsRunner = new MigrationRunner(
+						applicationContext.Services.MigrationEntryService,
+						applicationContext.ProfilingLogger.Logger,
+						latestMigration.Version,
+						targetVersion,
+						"DUUG");
+											</code></pre>
+			</section>
+			<section>
+				<h2>Demo</h2>
+				<ul class="fragment">
+					<li>Creating/altering database tables</li>
+					<li>Creating content</li>
+				</ul>
+			</section>
+			<section class="dark-bg-slide" data-background-image="lib/images/plugin.jpg" data-background-transition="convex">
+				<h1>Make your package extendable </h1>				
+			</section>
+			<section>
+				<h2>Plugins</h2>
+				<p>The term 'Plugins' is referring to any types in Umbraco that are found in assemblies that are used to extend and/or enhance the Umbraco application. Plugins can also be added directly registered to their specific 'Resolver' if the plugin type is not public or if the Resolver type doesn't support finding types in assemblies.</p>
+			</section>
+			<section>
+				<h2>Resolvers</h2>
+				<p>A Resolver is an class that returns a plugin object or multiple plugin objects. There are 2 types of Resolvers: A single object resolver and a multiple object resolver.</p>
+			</section>
+			<section>
+				<h2>Resolvers examples</h2>
+				<ul>
+					<li>ContentFinderResolver</li>
+					<li>UrlProviderResolver</li>
+					<li>DefaultRenderMvcControllerResolver</li>
+				</ul>
+			</section>
+			<section>
+				<h2>Demo</h2>
+				<ul class="fragment">
+					<li>Single object resolver for mobile detection</li>
+					<li>ManyObjectResolver in Nexu for parsers</li>
+				</ul>
+			</section>
+			
+			<section class="dark-bg-slide" data-background-image="lib/images/questions.jpg" data-background-transition="convex">
+				<h1>Questions</h1>				
+			</section>
+			<section>
+				<h2>Documentation</h2>
+				<ul>
+					<li><a href="https://our.umbraco.com/documentation/Reference/Events/EditorModel-Events"  target="_blank" rel="noreferrer">EditorModel Events</a></li>
+					<li><a href="https://our.umbraco.com/documentation/Reference/Routing/custom-routes" target="_blank" rel="noreferrer">Custom routes</a></li>
+					<li><a href="https://our.umbraco.com/apidocs/csharp/api/Umbraco.Web.Routing.PublishedContentRequest.html#Umbraco_Web_Routing_PublishedContentRequest_Prepared" target="_blank" rel="noreferrer">PublishedContentRequest.Prepared event</a></li>
+					<li><a href="https://our.umbraco.com/documentation/Reference/Plugins/" target="_blank" rel="noreferrer">Plugins</a></li>
+				</ul>
+			</section>
+			<section>
+				<h2>Become a patreon</h2>
+				<p>I you are using one of my packages in your client projects, consider becoming a patreon to support ongoing development</p>
+				<p><a href="https://www.patreon.com/dawoe">https://www.patreon.com/dawoe</a></p>
+			</section>
+		</div>
+	</div>
+
+	<div id="colourslogo">
+		<a href="http://www.colours.nl">
+			<svg class="c-logo__image">
+				<use xlink:href="lib/images/svg.svg#logo-colours"></use>
+			</svg>
+		</a>
+	</div>
+
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info about config & dependencies:
+		// - https://github.com/hakimel/reveal.js#configuration
+		// - https://github.com/hakimel/reveal.js#dependencies
+		Reveal.initialize({
+			controls: true,
+			progress: true,
+			history: true,
+			center: true,
+			transition: 'slide', // none/fade/slide/convex/concave/zoom,
+			showNotes: false,
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+				{ src: 'plugin/zoom-js/zoom.js', async: true },
+			]
+		});
+	</script>
+</body>
+
+</html>
