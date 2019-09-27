@@ -1,0 +1,10 @@
+@font-face {
+  font-family: "relative-bold";
+  src: url("../font/relative/relative-bold.eot");
+  src: url("../font/relative/relative-bold.eot?#iefix") format("embedded-opentype"),
+    url("../font/relative/relative-bold.woff") format("woff"),
+    url("../font/relative/relative-bold.woff2") format("woff2"),
+    url("../font/relative/relative-bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
