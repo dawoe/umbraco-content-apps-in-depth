@@ -28,7 +28,7 @@ body {
 }
 
 .reveal {
-  font-size: 42px;
+  font-size: 36px;
   font-weight: normal;
   color: #151515;
 }
@@ -271,17 +271,65 @@ body {
   * LINKS
   *********************************************/
 .reveal a {
-  color: #151515;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(currentColor),
+    to(currentColor)
+  );
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 3px;
   text-decoration: none;
-  -webkit-transition: color 0.15s ease;
-  -moz-transition: color 0.15s ease;
-  transition: color 0.15s ease;
 }
 
+@media only screen and (min-width: 61.25em) {
+  .reveal a {
+    color: #000;
+    background: none;
+    display: inline-block;
+    position: relative;
+  }
+
+  .reveal a:before {
+    background-color: #000;
+    bottom: 0;
+    content: "";
+    left: 0;
+    right: 0;
+    height: 2px;
+    overflow: hidden;
+    position: absolute;
+    -webkit-transform: scaleX(100%);
+    transform: scaleX(100%);
+    -webkit-transform-origin: left;
+    transform-origin: left;
+    -webkit-transition: -webkit-transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: -webkit-transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1),
+      -webkit-transform 1s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+}
+
+.reveal a:active,
+.reveal a:focus,
 .reveal a:hover {
-  color: #17e227;
-  text-shadow: none;
-  border: none;
+  text-decoration: none;
+  color: #000;
+}
+
+@media only screen and (min-width: 61.25em) {
+  .reveal a:active:before,
+  .reveal a:focus:before,
+  .reveal a:hover:before {
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transform-origin: right;
+    transform-origin: right;
+  }
 }
 
 .reveal .roll span:after {
@@ -379,4 +427,89 @@ body {
 #colourslogo .c-logo__image {
   width: 100px;
   heigth: auto;
+}
+
+.reveal div.left-20 {
+  float: left;
+  z-index: -10;
+  width: 20%;
+  text-align: left;
+}
+.reveal div.left-30 {
+  float: left;
+  z-index: -10;
+  width: 30%;
+  text-align: left;
+}
+.reveal div.left-40 {
+  float: left;
+  z-index: -10;
+  width: 40%;
+  text-align: left;
+}
+.reveal div.left-50 {
+  float: left;
+  z-index: -10;
+  width: 50%;
+  text-align: left;
+}
+.reveal div.left-60 {
+  float: left;
+  z-index: -10;
+  width: 60%;
+  text-align: left;
+}
+.reveal div.left-70 {
+  float: left;
+  z-index: -10;
+  width: 70%;
+  text-align: left;
+}
+.reveal div.left-80 {
+  float: left;
+  z-index: -10;
+  width: 80%;
+  text-align: left;
+}
+.reveal div.right-20 {
+  float: right;
+  z-index: -10;
+  width: 20%;
+  text-align: right;
+}
+.reveal div.right-30 {
+  float: right;
+  z-index: -10;
+  width: 30%;
+  text-align: right;
+}
+.reveal div.right-40 {
+  float: right;
+  z-index: -10;
+  width: 40%;
+  text-align: right;
+}
+.reveal div.right-50 {
+  float: right;
+  z-index: -10;
+  width: 50%;
+  text-align: right;
+}
+.reveal div.right-60 {
+  float: right;
+  z-index: -10;
+  width: 60%;
+  text-align: right;
+}
+.reveal div.right-70 {
+  float: right;
+  z-index: -10;
+  width: 70%;
+  text-align: right;
+}
+.reveal div.right-80 {
+  float: right;
+  z-index: -10;
+  width: 80%;
+  text-align: right;
 }
