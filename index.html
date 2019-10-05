@@ -86,13 +86,70 @@
           <div class="right-40">
             <ul>
               <li class="fragment">What are content apps</li>
+              <li class="fragment">What problems do they solve</li>
               <li class="fragment">What is needed to create them</li>
               <li class="fragment">Tips & tricks</li>
             </ul>
           </div>
         </section>
 
+        <section
+          class="dark-bg-slide"
+          data-background="#26FFC9"
+          data-background-transition="convex"
+        >
+          <h1>Content apps ????</h1>
+        </section>
         <section>
+          <h2>A new extension option in Umbraco introduced in V8</h2>
+        </section>
+        <section>
+          <h2>
+            They have a relation with a "content" node, but are not meant to
+            edit the content themselves.
+          </h2>
+        </section>
+        <section>
+          <h2>
+            They are meant to show information in context of a "content" node
+          </h2>
+        </section>
+        <section
+          data-hide-logo="true"
+          data-background-image="lib/images/content-apps-default.jpg"
+          data-background-size="100% auto"
+        ></section>
+        <section>
+          <h2>
+            Looks familiar ???
+          </h2>
+        </section>
+        <section
+          data-hide-logo="true"
+          data-background-image="lib/images/v7-doctype-editor.jpg"
+          data-background-size="100% auto"
+        ></section>
+        <section>
+          <h2>
+            Editor Subviews
+          </h2>
+          <p>Similar UI already possible since Umbraco 7.4</p>
+          <p>
+            Example in docs :
+            <a
+              href="https://our.umbraco.com/apidocs/v8/ui/#/api/umbraco.directives.directive:umbEditorHeader"
+              target="_blank"
+              >umb-editor-header</a
+            >
+          </p>
+        </section>
+        <section>
+          <h1>Conte<del>n</del><ins>x</ins>t apps</h1>
+          <p class="fragment">Not limited to content</p>
+          <p class="fragment">Can be added to media and member items as well</p>
+        </section>
+
+        <!-- <section>
           <h2>EditorModelEventManager Events</h2>
           <pre class="small"><code class="csharp" data-trim contenteditable>
 					public class MyEventHandler : ApplicationEventHandler
@@ -113,7 +170,7 @@
 						}
 					}
 											</code></pre>
-        </section>
+        </section> -->
       </div>
     </div>
 
@@ -139,7 +196,7 @@
         progress: true,
         history: true,
         center: true,
-        transition: "slide", // none/fade/slide/convex/concave/zoom,
+        transition: "none", // none/fade/slide/convex/concave/zoom,
         showNotes: false,
         dependencies: [
           { src: "plugin/markdown/marked.js" },
@@ -154,6 +211,14 @@
           },
           { src: "plugin/zoom-js/zoom.js", async: true }
         ]
+      });
+
+      Reveal.addEventListener("slidechanged", function(event) {
+        if (event.currentSlide.dataset.hideLogo) {
+          document.getElementById("colourslogo").hidden = true;
+        } else {
+          document.getElementById("colourslogo").hidden = false;
+        }
       });
     </script>
   </body>
