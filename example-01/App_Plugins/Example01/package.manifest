@@ -1,0 +1,11 @@
+{
+    "contentApps": [
+    {
+        "name": "Example 01", 
+        "alias": "example01", 
+        "weight": 0,
+        "icon": "icon-bomb", 
+        "view": "~/App_Plugins/Example01/view.html"
+    }
+    ]
+}
