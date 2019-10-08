@@ -147,7 +147,7 @@
           <h1>Conte<del>n</del><ins>x</ins>t apps</h1>
           <p class="fragment">Not limited to content</p>
           <p class="fragment">
-            Can be used in context of media and members as well
+            Can be used in context of media as well
           </p>
         </section>
         <section
@@ -205,7 +205,7 @@
           data-background="#F5D9FF"
           data-background-transition="convex"
         >
-          <h1>Let's build one</h1>
+          <h1>Creating content apps</h1>
         </section>
         <section>
           <h2>
@@ -216,29 +216,54 @@
             <li class="fragment">A (optional) angular controller</li>
             <li class="fragment">A package.manifest to register</li>
           </ul>
+          <p class="fragment">
+            Check out the
+            <a
+              href="https://our.umbraco.com/documentation/Extending/Content-Apps"
+              >documentation</a
+            >
+          </p>
         </section>
-        <!-- <section>
-          <h2>EditorModelEventManager Events</h2>
-          <pre class="small"><code class="csharp" data-trim contenteditable>
-					public class MyEventHandler : ApplicationEventHandler
-					{
-						protected override void ApplicationStarted(UmbracoApplicationBase umbracoApplication, 
-							ApplicationContext applicationContext)
-						{
-							EditorModelEventManager.SendingContentModel += 
-								EditorModelEventManager_SendingContentModel;   
-						}            
-
-						private void EditorModelEventManager_SendingContentModel(
-							System.Web.Http.Filters.HttpActionExecutedContext sender, 
-							EditorModelEventArgs&lt;Umbraco.Web.Models.ContentEditing.ContentItemDisplay&gt; e)
-						{
-							var contentItemDisplay = e.Model;
-							var context = e.UmbracoContext;            							
-						}
-					}
+        <section>
+          <h2>Register through package manifest</h2>
+          <pre><code class="json" data-trim contenteditable>
+          {
+              "contentApps": [
+                {
+                    "name": "Example 01", 
+                    "alias": "example01", 
+                    "weight": 0,
+                    "icon": "icon-bomb", 
+                    "view": "~/App_Plugins/Example01/view.html"
+                }
+              ],
+              "javascript": [
+                  "~/App_Plugins/Example01/controller.js"
+              ]
+          }
 											</code></pre>
-        </section> -->
+        </section>
+        <section>
+          <h2>Register through package manifest</h2>
+          <pre><code class="json" data-trim contenteditable>
+          {
+            <mark>
+              "contentApps": [
+                {
+                    "name": "Example 01", 
+                    "alias": "example01", 
+                    "weight": 0,
+                    "icon": "icon-bomb", 
+                    "view": "~/App_Plugins/Example01/view.html"
+                }
+              ],
+            </mark>
+              "javascript": [
+                  "~/App_Plugins/Example01/controller.js"
+              ]
+          }
+											</code></pre>
+        </section>
       </div>
     </div>
 
