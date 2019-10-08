@@ -1,0 +1,17 @@
+{
+    "contentApps": [
+    {
+        "name": "Example 03", 
+        "alias": "example03", 
+        "weight": 0,
+        "icon": "icon-war", 
+        "view": "~/App_Plugins/Example03/view.html",
+        "show": [                               
+                "+role/admin"                
+            ]
+    }
+    ],
+    "javascript": [
+        "~/App_Plugins/Example03/controller.js"
+    ]
+}

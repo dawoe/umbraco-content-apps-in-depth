@@ -6,8 +6,9 @@
         "weight": 0,
         "icon": "icon-scull", 
         "view": "~/App_Plugins/Example02/view.html",
-        "show": [                               
+        "show": [
                 "-content/home", 
+                "+content/*",
                 "-media/*"
             ]
     }
