@@ -1,0 +1,18 @@
+{
+    "contentApps": [
+    {
+        "name": "Example 02", 
+        "alias": "example02", 
+        "weight": 0,
+        "icon": "icon-scull", 
+        "view": "~/App_Plugins/Example02/view.html",
+        "show": [                               
+                "-content/home", 
+                "-media/*"
+            ]
+    }
+    ],
+    "javascript": [
+        "~/App_Plugins/Example02/controller.js"
+    ]
+}
