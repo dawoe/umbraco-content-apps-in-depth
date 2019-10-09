@@ -678,6 +678,57 @@
           </h2>
           <img class="stretch" src="lib/images/scope-content-variants.jpg" />
         </section>
+        <section>
+          <h2>Using data from content</h2>
+          <pre><code class="javascript" data-trim contenteditable>
+            (function() {
+              "use strict";
+            
+              function ExampleFiveController($scope) {
+                var vm = this;
+            
+                vm.variant = _.find($scope.content.variants, function(v) {
+                  return v.active;
+                });
+              }
+            
+              angular
+                .module("umbraco")
+                .controller("ExampleFiveController", ["$scope", ExampleFiveController]);
+            })();
+                      </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-05/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Using data from content</h2>
+          <pre><code class="html" data-trim contenteditable>
+            <div ng-controller="ExampleFiveController as vm">
+              <p>Current variant name : {{ vm.variant.name }}</p>
+              <p>Current variant publish date : {{ vm.variant.publishDate }}</p>
+              <p>Current variant has {{ vm.variant.tabs.length }} "tabs"</p>
+            </div>
+                      </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-05/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section
+          data-hide-logo="true"
+          data-background-image="lib/images/example05-app.jpg"
+          data-background-size="100% auto"
+        ></section>
       </div>
     </div>
 
