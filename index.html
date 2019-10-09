@@ -224,7 +224,7 @@
           </p>
         </section>
         <section>
-          <h2>Register through package manifest</h2>
+          <h2>Register with package manifest</h2>
           <pre><code class="json" data-trim contenteditable>
           {
               "contentApps": [
@@ -251,7 +251,7 @@
           </p>
         </section>
         <section>
-          <h2>Register through package manifest</h2>
+          <h2>Register with package manifest</h2>
           <pre><code class="json dimmed" data-trim data-noescape>
           {
             <mark>
@@ -284,6 +284,127 @@
           data-background-image="lib/images/example01-app.jpg"
           data-background-size="100% auto"
         ></section>
+        <section>
+          <h2>
+            How can we control access ?
+          </h2>
+        </section>
+        <section>
+          <h2>Access by type</h2>
+          <pre><code class="json" data-trim contenteditable>
+            {
+              "contentApps": [
+              {
+                  "name": "Example 02", 
+                  "alias": "example02", 
+                  "weight": 0,
+                  "icon": "icon-scull", 
+                  "view": "~/App_Plugins/Example02/view.html",
+                  "show": [
+                          "-content/home", 
+                          "+content/*",
+                          "-media/*"
+                      ]
+              }
+              ]
+          }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-02/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Access by type</h2>
+          <pre><code class="json dimmed" data-trim data-noescape>
+            {
+              "contentApps": [
+              {
+                  "name": "Example 02", 
+                  "alias": "example02", 
+                  "weight": 0,
+                  "icon": "icon-scull", 
+                  "view": "~/App_Plugins/Example02/view.html",
+                  <mark>
+                  "show": [
+                          "-content/home", 
+                          "+content/*",
+                          "-media/*"
+                      ]
+                    </mark>
+              }
+              ]
+          }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-02/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Access by role</h2>
+          <pre><code class="json" data-trim contenteditable>
+            {
+              "contentApps": [
+              {
+                  "name": "Example 03", 
+                  "alias": "example03", 
+                  "weight": 0,
+                  "icon": "icon-war", 
+                  "view": "~/App_Plugins/Example03/view.html",
+                  "show": [                               
+                      "+role/admin"                
+                  ]
+              }
+              ]
+          }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-03/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Access by role</h2>
+          <pre><code class="json dimmed" data-trim data-noescape>
+            {
+              "contentApps": [
+              {
+                  "name": "Example 03", 
+                  "alias": "example03", 
+                  "weight": 0,
+                  "icon": "icon-war", 
+                  "view": "~/App_Plugins/Example03/view.html",
+                  <mark>
+                    "show": [                               
+                        "+role/admin"                
+                    ]
+                    </mark>
+              }
+              ]
+          }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-03/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
         <section>
           <h2>
             What data can we work with ?
