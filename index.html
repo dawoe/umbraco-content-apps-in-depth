@@ -1,274 +1,219 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
 
-    <title>Content apps in depth</title>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-    <link rel="stylesheet" href="css/reveal.css" />
-    <link rel="stylesheet" href="lib/css/way.css" />
+  <title>Content apps in depth</title>
 
-    <!-- Theme used for syntax highlighting of code -->
-    <link rel="stylesheet" href="lib/css/zenburn.css" />
+  <link rel="stylesheet" href="css/reveal.css" />
+  <link rel="stylesheet" href="lib/css/way.css" />
 
-    <!-- Printing and PDF exports -->
-    <script>
-      var link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.type = "text/css";
-      link.href = window.location.search.match(/print-pdf/gi)
-        ? "css/print/pdf.css"
-        : "css/print/paper.css";
-      document.getElementsByTagName("head")[0].appendChild(link);
-    </script>
-  </head>
+  <!-- Theme used for syntax highlighting of code -->
+  <link rel="stylesheet" href="lib/css/zenburn.css" />
 
-  <body>
-    <div class="reveal">
-      <div class="slides">
-        <section
-          class="dark-bg-slide"
-          data-background="#F5D9FF"
-          data-background-transition="convex"
-        >
-          <h1>Content apps in depth</h1>
-        </section>
-        <section
-          data-background-image="lib/images/dave-woestenborghs_smaller.jpg"
-          data-background-position="right"
-          data-background-size="auto 100%"
-        >
-          <div class="left-70">
-            <h2>Introduction</h2>
-            <ul>
-              <li>Dave Woestenborghs</li>
-              <li>
-                Work at
-                <a
-                  href="https://www.weareyou.com/en"
-                  target="_blank"
-                  rel="noreferrer"
-                  >We are you</a
-                >
-              </li>
-              <li>Using Umbraco since 2008</li>
-              <li>Umbraco MVP (4x)</li>
-            </ul>
-          </div>
-        </section>
-        <section
-          data-background-image="lib/images/dave-woestenborghs_smaller.jpg"
-          data-background-position="right"
-          data-background-size="auto 100%"
-        >
-          <div class="left-70">
-            <h2>Active community member</h2>
-            <ul>
-              <li>Forum contributions</li>
-              <li>Core contributions</li>
-              <li>Package developer</li>
-              <li>Member of the Umbraco PR team</li>
-              <li>Part of 24 days in Umbraco</li>
-            </ul>
-          </div>
-        </section>
-        <section
-          data-background="linear-gradient(80deg, #FFC927 50%, white 50% )"
-        >
-          <div class="left-50">
-            <h2>What will we cover</h2>
-          </div>
-          <div class="right-40">
-            <ul>
-              <li class="fragment">What are content apps</li>
-              <li class="fragment">What problems do they solve</li>
-              <li class="fragment">How to create them</li>              
-            </ul>
-          </div>
-        </section>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.href = window.location.search.match(/print-pdf/gi)
+      ? "css/print/pdf.css"
+      : "css/print/paper.css";
+    document.getElementsByTagName("head")[0].appendChild(link);
+  </script>
+</head>
 
-        <section
-          class="dark-bg-slide"
-          data-background="#26FFC9"
-          data-background-transition="convex"
-        >
-          <h1>Content apps ????</h1>
-        </section>
-        <section>
-          <h2>A new extension option in Umbraco introduced in V8</h2>
-        </section>
-        <section>
-          <h2>
-            They have a relation with a "content" node, but are not meant to
-            edit the content themselves.
-          </h2>
-        </section>
-        <section>
-          <h2>
-            They are meant to show information in context of a "content" node
-          </h2>
-        </section>
-        <section
-          data-hide-logo="true"
-          data-background-image="lib/images/content-apps-default.jpg"
-          data-background-size="100% auto"
-        ></section>
-        <section>
-          <h2>
-            Looks familiar ???
-          </h2>
-        </section>
-        <section
-          data-hide-logo="true"
-          data-background-image="lib/images/v7-doctype-editor.jpg"
-          data-background-size="100% auto"
-        ></section>
-        <section>
-          <h2>
-            Editor Subviews
-          </h2>
-          <p>Similar UI already possible since Umbraco 7.4</p>
-          <p>
-            Example in docs :
-            <a
-              href="https://our.umbraco.com/apidocs/v8/ui/#/api/umbraco.directives.directive:umbEditorHeader"
-              target="_blank"
-              >umb-editor-header</a
-            >
-          </p>
-        </section>
-        <section>
-          <h1>Conte<del>n</del><ins>x</ins>t apps</h1>
-          <p class="fragment">Not limited to content</p>
-          <p class="fragment">
-            Can be used in context of media as well
-          </p>
-        </section>
-        <section
-          class="dark-bg-slide"
-          data-background="#ffc927"
-          data-background-transition="convex"
-        >
-          <h1>Why ????</h1>
-        </section>
-        <section>
-          <h2>
-            In V7 there is no good way to display contextual data
-          </h2>
-        </section>
-        <section
-          data-hide-logo="true"
-          data-background-image="lib/images/v7-redirect-viewer.gif"
-          data-background-size="100% auto"
-        ></section>
-        <section>
-          <h2>
-            Dashboard
-          </h2>
-          <p class="fragment">
-            User has to search for a node to get context.
-          </p>
-        </section>
-        <section>
-          <h2>
-            Property editor
-          </h2>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section class="dark-bg-slide" data-background="#F5D9FF" data-background-transition="convex">
+        <h1>Content apps in depth</h1>
+      </section>
+      <section data-background-image="lib/images/dave-woestenborghs_smaller.jpg" data-background-position="right"
+        data-background-size="auto 100%">
+        <div class="left-70">
+          <h2>Introduction</h2>
           <ul>
-            <li class="fragment">Generate property in cache</li>
-            <li class="fragment">That will be available on MB models</li>
-            <li class="fragment">Will create versions of property</li>
+            <li>Dave Woestenborghs</li>
+            <li>
+              Work at
+              <a href="https://www.weareyou.com/en" target="_blank" rel="noreferrer">We are you</a>
+            </li>
+            <li>Using Umbraco since 2008</li>
+            <li>Umbraco MVP (4x)</li>
           </ul>
-        </section>
-        <section
-          data-hide-logo="true"
-          data-background-image="lib/images/v8-redirect-viewer.gif"
-          data-background-size="100% auto"
-        ></section>
-        <section>
-          <h2>
-            Content app
-          </h2>
+        </div>
+      </section>
+      <section data-background-image="lib/images/dave-woestenborghs_smaller.jpg" data-background-position="right"
+        data-background-size="auto 100%">
+        <div class="left-70">
+          <h2>Active community member</h2>
           <ul>
-            <li class="fragment">Displayed seperate from content</li>
-            <li class="fragment">In context of the item</li>
-            <li class="fragment">Does not store data with content item</li>
+            <li>Forum contributions</li>
+            <li>Core contributions</li>
+            <li>Package developer</li>
+            <li>Member of the Umbraco PR team</li>
+            <li>Part of 24 days in Umbraco</li>
           </ul>
-        </section>
-
-        <section
-          class="dark-bg-slide"
-          data-background="#F5D9FF"
-          data-background-transition="convex"
-        >
-          <h1>Some examples</h1>
-        </section>
-        <section>
-          <h2>
-            Preflight content health checks
-          </h2>
-          <img class="stretch" src="lib/images/preflight.jpg" />
-          <p><a href="https://our.umbraco.com/packages/backoffice-extensions/preflight-content-health-checks-for-umbraco-8">By Nathan Woulfe</a></p>
-        </section>
-        <section>
-          <h2>
-            Media info
-          </h2>
-          <img class="stretch" src="lib/images/mediainfo.png" />
-          <p><a href="https://our.umbraco.com/packages/backoffice-extensions/media-info">By Paul Seal</a></p>
-        </section>
-        <section>
-          <h2>
-            Media info
-          </h2>
-          <img class="stretch" src="lib/images/imagefilter.png" />
-          <p><a href="https://our.umbraco.com/packages/backoffice-extensions/image-filter">By Paul Seal</a></p>
-        </section>
-        <section>
-          <h2>
-            Skybrud Umbraco Analytics
-          </h2>
-          <img class="stretch" src="lib/images/analytics.png" />
-          <p><a href="https://github.com/abjerner/Skybrud.Umbraco.Analytics">By Anders Bjerner</a></p>
-        </section>
-
-        <section
-          class="dark-bg-slide"
-          data-background="#F5D9FF"
-          data-background-transition="convex"
-        >
-          <h1>Creating content apps</h1>
-        </section>
-        <section>
-          <h2>
-            The basics
-          </h2>
+        </div>
+      </section>
+      <section data-background="linear-gradient(80deg, #FFC927 50%, white 50% )">
+        <div class="left-50">
+          <h2>What will we cover</h2>
+        </div>
+        <div class="right-40">
           <ul>
-            <li class="fragment">A angular view</li>
-            <li class="fragment">A (optional) angular controller</li>
-            <li class="fragment">A package.manifest to register</li>
+            <li class="fragment">What are content apps</li>
+            <li class="fragment">What problems do they solve</li>
+            <li class="fragment">How to create them</li>
           </ul>
-          <p class="fragment">
-            Check out the
-            <a
-              href="https://our.umbraco.com/documentation/Extending/Content-Apps"
-              >documentation</a
-            >
-          </p>
-        </section>
-        <section
-          class="dark-bg-slide"
-          data-background="#26FFC9"
-          data-background-transition="convex"
-        >
-          <h1>Register content apps</h1>
-        </section>
-        <section>
-          <h2>Register with package manifest</h2>
-          <pre><code class="json" data-trim contenteditable>
+        </div>
+      </section>
+
+      <section class="dark-bg-slide" data-background="#26FFC9" data-background-transition="convex">
+        <h1>Content apps ????</h1>
+      </section>
+      <section>
+        <h2>A new extension option in Umbraco introduced in V8</h2>
+      </section>
+      <section>
+        <h2>
+          They have a relation with a "content" node, but are not meant to
+          edit the content themselves.
+        </h2>
+      </section>
+      <section>
+        <h2>
+          They are meant to show information in context of a "content" node
+        </h2>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/content-apps-default.jpg"
+        data-background-size="100% auto"></section>
+      <section>
+        <h2>
+          Looks familiar ???
+        </h2>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/v7-doctype-editor.jpg"
+        data-background-size="100% auto"></section>
+      <section>
+        <h2>
+          Editor Subviews
+        </h2>
+        <p>Similar UI already possible since Umbraco 7.4</p>
+        <p>
+          Example in docs :
+          <a href="https://our.umbraco.com/apidocs/v8/ui/#/api/umbraco.directives.directive:umbEditorHeader"
+            target="_blank">umb-editor-header</a>
+        </p>
+      </section>
+      <section>
+        <h1>Conte<del>n</del><ins>x</ins>t apps</h1>
+        <p class="fragment">Not limited to content</p>
+        <p class="fragment">
+          Can be used in context of media as well
+        </p>
+      </section>
+      <section class="dark-bg-slide" data-background="#ffc927" data-background-transition="convex">
+        <h1>Why ????</h1>
+      </section>
+      <section>
+        <h2>
+          In V7 there is no good way to display contextual data
+        </h2>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/v7-redirect-viewer.gif"
+        data-background-size="100% auto"></section>
+      <section>
+        <h2>
+          Dashboard
+        </h2>
+        <p class="fragment">
+          User has to search for a node to get context.
+        </p>
+      </section>
+      <section>
+        <h2>
+          Property editor
+        </h2>
+        <ul>
+          <li class="fragment">Generate property in cache</li>
+          <li class="fragment">That will be available on MB models</li>
+          <li class="fragment">Will create versions of property</li>
+        </ul>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/v8-redirect-viewer.gif"
+        data-background-size="100% auto"></section>
+      <section>
+        <h2>
+          Content app
+        </h2>
+        <ul>
+          <li class="fragment">Displayed seperate from content</li>
+          <li class="fragment">In context of the item</li>
+          <li class="fragment">Does not store data with content item</li>
+        </ul>
+      </section>
+
+      <section class="dark-bg-slide" data-background="#F5D9FF" data-background-transition="convex">
+        <h1>Some examples</h1>
+      </section>
+      <section>
+        <h2>
+          Preflight content health checks
+        </h2>
+        <img class="stretch" src="lib/images/preflight.jpg" />
+        <p><a
+            href="https://our.umbraco.com/packages/backoffice-extensions/preflight-content-health-checks-for-umbraco-8">By
+            Nathan Woulfe</a></p>
+      </section>
+      <section>
+        <h2>
+          Media info
+        </h2>
+        <img class="stretch" src="lib/images/mediainfo.png" />
+        <p><a href="https://our.umbraco.com/packages/backoffice-extensions/media-info">By Paul Seal</a></p>
+      </section>
+      <section>
+        <h2>
+          Media info
+        </h2>
+        <img class="stretch" src="lib/images/imagefilter.png" />
+        <p><a href="https://our.umbraco.com/packages/backoffice-extensions/image-filter">By Paul Seal</a></p>
+      </section>
+      <section>
+        <h2>
+          Skybrud Umbraco Analytics
+        </h2>
+        <img class="stretch" src="lib/images/analytics.png" />
+        <p><a href="https://github.com/abjerner/Skybrud.Umbraco.Analytics">By Anders Bjerner</a></p>
+      </section>
+
+      <section class="dark-bg-slide" data-background="#F5D9FF" data-background-transition="convex">
+        <h1>Creating content apps</h1>
+      </section>
+      <section>
+        <h2>
+          The basics
+        </h2>
+        <ul>
+          <li class="fragment">A angular view</li>
+          <li class="fragment">A (optional) angular controller</li>
+          <li class="fragment">A package.manifest to register</li>
+        </ul>
+        <p class="fragment">
+          Check out the
+          <a href="https://our.umbraco.com/documentation/Extending/Content-Apps">documentation</a>
+        </p>
+      </section>
+      <section class="dark-bg-slide" data-background="#26FFC9" data-background-transition="convex">
+        <h1>Register content apps</h1>
+      </section>
+      <section>
+        <h2>Register with package manifest</h2>
+        <pre><code class="json" data-trim contenteditable>
           {
               "contentApps": [
                 {
@@ -284,18 +229,15 @@
               ]
           }
                       </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-01/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Register with package manifest</h2>
-          <pre><code class="json dimmed" data-trim data-noescape>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-01/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Register with package manifest</h2>
+        <pre><code class="json dimmed" data-trim data-noescape>
           {
             <mark>
               "contentApps": [
@@ -313,28 +255,22 @@
               ]
           }
                       </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-01/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section
-          data-hide-logo="true"
-          data-background-image="lib/images/example01-app.jpg"
-          data-background-size="100% auto"
-        ></section>
-        <section>
-          <h2>
-            How can we control access ?
-          </h2>
-        </section>
-        <section>
-          <h2>Access by type</h2>
-          <pre><code class="json" data-trim contenteditable>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-01/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/example01-app.jpg"
+        data-background-size="100% auto"></section>
+      <section>
+        <h2>
+          How can we control access ?
+        </h2>
+      </section>
+      <section>
+        <h2>Access by type</h2>
+        <pre><code class="json" data-trim contenteditable>
             {
               "contentApps": [
               {
@@ -352,18 +288,15 @@
               ]
           }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-02/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Access by type</h2>
-          <pre><code class="json dimmed" data-trim data-noescape>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-02/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Access by type</h2>
+        <pre><code class="json dimmed" data-trim data-noescape>
             {
               "contentApps": [
               {
@@ -383,18 +316,15 @@
               ]
           }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-02/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Access by role</h2>
-          <pre><code class="json" data-trim contenteditable>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-02/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Access by role</h2>
+        <pre><code class="json" data-trim contenteditable>
             {
               "contentApps": [
               {
@@ -410,18 +340,15 @@
               ]
           }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-03/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Access by role</h2>
-          <pre><code class="json dimmed" data-trim data-noescape>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-03/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Access by role</h2>
+        <pre><code class="json dimmed" data-trim data-noescape>
             {
               "contentApps": [
               {
@@ -439,36 +366,33 @@
               ]
           }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-03/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Package.manifest registration downsides</h2>
-          <ul>
-            <li class="fragment">Prone to errors</li>
-            <li class="fragment">Changes can be overridden on upgrades</li>
-            <li class="fragment">Limited options in controlling access</li>
-          </ul>
-        </section>
-        <section>
-          <h2>Registering using Content App factory</h2>
-          <ul>
-            <li class="fragment">
-              Create a class implementing IContentAppFactory
-            </li>
-            <li class="fragment">Implement the GetContentAppFor method</li>
-            <li class="fragment">Register the factory using a composer</li>
-          </ul>
-        </section>
-        <section>
-          <h2>Registering using Content App factory</h2>
-          <pre class="small"><code class="csharp" data-trim data-noescape>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-03/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Package.manifest registration downsides</h2>
+        <ul>
+          <li class="fragment">Prone to errors</li>
+          <li class="fragment">Changes can be overridden on upgrades</li>
+          <li class="fragment">Limited options in controlling access</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Registering using Content App factory</h2>
+        <ul>
+          <li class="fragment">
+            Create a class implementing IContentAppFactory
+          </li>
+          <li class="fragment">Implement the GetContentAppFor method</li>
+          <li class="fragment">Register the factory using a composer</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Registering using Content App factory</h2>
+        <pre class="small"><code class="csharp" data-trim data-noescape>
             public class ExampleFourApp : IContentAppFactory
             {
                 public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
@@ -495,18 +419,15 @@
                 }
             }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Registering using Content App factory</h2>
-          <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Registering using Content App factory</h2>
+        <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
             public class ExampleFourApp : IContentAppFactory
             {
                 public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
@@ -533,18 +454,15 @@
                 }
             }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Registering using Content App factory</h2>
-          <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Registering using Content App factory</h2>
+        <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
             public class ExampleFourApp : IContentAppFactory
             {
                 public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
@@ -571,18 +489,15 @@
                 }
             }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Registering using Content App factory</h2>
-          <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Registering using Content App factory</h2>
+        <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
             public class ExampleFourApp : IContentAppFactory
             {
                 public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
@@ -609,18 +524,15 @@
                 }
             }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Registering using Content App factory</h2>
-          <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Registering using Content App factory</h2>
+        <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
             public class ExampleFourApp : IContentAppFactory
             {
                 public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
@@ -638,65 +550,56 @@
                 }
             }
                         </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section
-          data-hide-logo="true"
-          data-background-image="lib/images/example04-app.jpg"
-          data-background-size="100% auto"
-        ></section>
-        <section>
-          <h2>
-            What access control of<br/> 3rd party  content apps ?
-          </h2>
-          <ul>
-            <li class="fragment">Possible when registered using package.manifest</li>
-            <li class="fragment">But not possible when registered using factory</li>
-          </ul>
-        </section>
-        <section>
-          <h2>
-            EditorModelEventManager events <br/> to the rescue
-          </h2>
-          <p class="fragment">A blog post by Paul Seal : <br />
-            <a href="https://codeshare.co.uk/blog/how-to-restrict-content-apps-by-user-groups-in-umbraco/">How to restrict Content Apps by user groups in Umbraco</a>
-          </p>
-        </section>
-        <section
-          class="dark-bg-slide"
-          data-background="#ffc927"
-          data-background-transition="convex"
-        >
-          <h1>Which data is available</h1>
-        </section>
-        <section>
-          <h2>
-            $scope.model
-          </h2>
-          <img class="stretch" src="lib/images/scope-model.jpg" />
-        </section>
-        <section>
-          <h2>
-            $scope.content
-          </h2>
-          <img class="stretch" src="lib/images/scope-content.jpg" />
-        </section>
-        <section>
-          <h2>
-            $scope.content.variants
-          </h2>
-          <img class="stretch" src="lib/images/scope-content-variants.jpg" />
-        </section>
-        <section>
-          <h2>Using data from content</h2>
-          <pre><code class="javascript" data-trim contenteditable>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/example04-app.jpg"
+        data-background-size="100% auto"></section>
+      <section>
+        <h2>
+          What access control of<br /> 3rd party content apps ?
+        </h2>
+        <ul>
+          <li class="fragment">Possible when registered using package.manifest</li>
+          <li class="fragment">But not possible when registered using factory</li>
+        </ul>
+      </section>
+      <section>
+        <h2>
+          EditorModelEventManager events <br /> to the rescue
+        </h2>
+        <p class="fragment">A blog post by Paul Seal : <br />
+          <a href="https://codeshare.co.uk/blog/how-to-restrict-content-apps-by-user-groups-in-umbraco/">How to restrict
+            Content Apps by user groups in Umbraco</a>
+        </p>
+      </section>
+      <section class="dark-bg-slide" data-background="#ffc927" data-background-transition="convex">
+        <h1>Which data is available</h1>
+      </section>
+      <section>
+        <h2>
+          $scope.model
+        </h2>
+        <img class="stretch" src="lib/images/scope-model.jpg" />
+      </section>
+      <section>
+        <h2>
+          $scope.content
+        </h2>
+        <img class="stretch" src="lib/images/scope-content.jpg" />
+      </section>
+      <section>
+        <h2>
+          $scope.content.variants
+        </h2>
+        <img class="stretch" src="lib/images/scope-content-variants.jpg" />
+      </section>
+      <section>
+        <h2>Using data from content</h2>
+        <pre><code class="javascript" data-trim contenteditable>
             (function() {
               "use strict";
             
@@ -713,43 +616,30 @@
                 .controller("ExampleFiveController", ["$scope", ExampleFiveController]);
             })();
                       </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-05/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section>
-          <h2>Using data from content</h2>
-          <pre><code class="html" data-trim contenteditable>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-05/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+        <h2>Using data from content</h2>
+        <pre><code class="html" data-trim contenteditable>
             <div ng-controller="ExampleFiveController as vm">
               <p>Current variant name : {{ vm.variant.name }}</p>
               <p>Current variant publish date : {{ vm.variant.publishDate }}</p>
               <p>Current variant has {{ vm.variant.tabs.length }} "tabs"</p>
             </div>
                       </code></pre>
-          <p>
-            Example code on
-            <a
-              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-05/"
-              target="_blank"
-              >github</a
-            >
-          </p>
-        </section>
-        <section
-          data-hide-logo="true"
-          data-background-image="lib/images/example05-app.jpg"
-          data-background-size="100% auto"
-        ></section>
-        <section
-        class="dark-bg-slide"
-        data-background="#26FFC9"
-        data-background-transition="convex"
-      >
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-05/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/example05-app.jpg"
+        data-background-size="100% auto"></section>
+      <section class="dark-bg-slide" data-background="#26FFC9" data-background-transition="convex">
         <h1>Gotcha's ??</h1>
       </section>
       <section>
@@ -758,60 +648,93 @@
         </h2>
         <p class="fragment">Limit the amount of content apps</p>
       </section>
-      <section
-        data-hide-logo="true"
-        data-background-image="lib/images/app-over-kill.jpg"
-        data-background-size="100% auto"
-      ></section>
-      </div>
+      <section data-hide-logo="true" data-background-image="lib/images/app-over-kill.jpg"
+        data-background-size="100% auto"></section>
+      <section class="dark-bg-slide" data-background="#F5D9FF" data-background-transition="convex">
+        <h1>Need inspiration?</h1>
+      </section>
+      <section>
+        <h2>
+          Social sharing preview
+        </h2>       
+      </section>
+      <section>
+        <h2>
+          Page speed analysis
+        </h2>       
+      </section>    
+      <section>
+        <h2>
+          Notes or task list
+        </h2>       
+      </section> 
+      <section>
+        <h2>
+          SEO Check
+        </h2>       
+      </section> 
+      <section>
+        <h2>
+          Browser preview using Browserstack API
+        </h2>       
+      </section> 
+      <section>
+        <h2>
+          Use your imagination...
+        </h2>       
+      </section> 
+      <section class="dark-bg-slide" data-background="#ffc927" data-background-transition="convex">
+        <h1>Questions?</h1>
+      </section>
+      <section class="dark-bg-slide"  data-background-transition="convex">
+        <h1>Thank you!</h1>
+      </section>
     </div>
+  </div>
 
-    <div id="colourslogo">
-      <a href="https://www.weareyou.com/en/partners/umbraco">
-        <img
-          src="lib/images/weareyou_logo_rgb@3x.png"
-          alt="Logo we are you"
-          width="100"
-        />
-      </a>
-    </div>
+  <div id="colourslogo">
+    <a href="https://www.weareyou.com/en/partners/umbraco">
+      <img src="lib/images/weareyou_logo_rgb@3x.png" alt="Logo we are you" width="100" />
+    </a>
+  </div>
 
-    <script src="lib/js/head.min.js"></script>
-    <script src="js/reveal.js"></script>
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
 
-    <script>
-      // More info about config & dependencies:
-      // - https://github.com/hakimel/reveal.js#configuration
-      // - https://github.com/hakimel/reveal.js#dependencies
-      Reveal.initialize({
-        controls: true,
-        progress: true,
-        history: true,
-        center: true,
-        transition: "none", // none/fade/slide/convex/concave/zoom,
-        showNotes: false,
-        dependencies: [
-          { src: "plugin/markdown/marked.js" },
-          { src: "plugin/markdown/markdown.js" },
-          { src: "plugin/notes/notes.js", async: true },
-          {
-            src: "plugin/highlight/highlight.js",
-            async: true,
-            callback: function() {
-              hljs.initHighlightingOnLoad();
-            }
-          },
-          { src: "plugin/zoom-js/zoom.js", async: true }
-        ]
-      });
+  <script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      transition: "none", // none/fade/slide/convex/concave/zoom,
+      showNotes: false,
+      dependencies: [
+        { src: "plugin/markdown/marked.js" },
+        { src: "plugin/markdown/markdown.js" },
+        { src: "plugin/notes/notes.js", async: true },
+        {
+          src: "plugin/highlight/highlight.js",
+          async: true,
+          callback: function () {
+            hljs.initHighlightingOnLoad();
+          }
+        },
+        { src: "plugin/zoom-js/zoom.js", async: true }
+      ]
+    });
 
-      Reveal.addEventListener("slidechanged", function(event) {
-        if (event.currentSlide.dataset.hideLogo) {
-          document.getElementById("colourslogo").hidden = true;
-        } else {
-          document.getElementById("colourslogo").hidden = false;
-        }
-      });
-    </script>
-  </body>
+    Reveal.addEventListener("slidechanged", function (event) {
+      if (event.currentSlide.dataset.hideLogo) {
+        document.getElementById("colourslogo").hidden = true;
+      } else {
+        document.getElementById("colourslogo").hidden = false;
+      }
+    });
+  </script>
+</body>
+
 </html>
