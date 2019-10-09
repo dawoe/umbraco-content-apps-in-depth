@@ -420,6 +420,202 @@
             <li class="fragment">Limited options in controlling access</li>
           </ul>
         </section>
+        <section>
+          <h2>Registering using Content App factory</h2>
+          <ul>
+            <li class="fragment">
+              Create a class implementing IContentAppFactory
+            </li>
+            <li class="fragment">Implement the GetContentAppFor method</li>
+            <li class="fragment">Register the factory using a composer</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Registering using Content App factory</h2>
+          <pre class="small"><code class="csharp" data-trim data-noescape>
+            public class ExampleFourApp : IContentAppFactory
+            {
+                public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
+                {
+                    if (source is IMedia) return null;
+                            
+                    if (userGroups.Any(x => x.Alias.ToLowerInvariant() == "admin") == false)
+                      return null;
+                            
+                    var content = source as IContent;
+        
+                    if (content.Id == 0) return null;
+                    }
+        
+                    return = new ContentApp
+                    {
+                        Alias = "example04",
+                        Name = "Example 04",
+                        Icon = "icon-piracy",
+                        View = "/App_Plugins/Example04/view.html",
+                        Weight = 0,
+                        ViewModel = "This is data set from the factory"
+                    };
+                }
+            }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Registering using Content App factory</h2>
+          <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
+            public class ExampleFourApp : IContentAppFactory
+            {
+                public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
+                {
+                    <mark>
+                    if (source is IMedia) return null;
+                  </mark>      
+                    if (userGroups.Any(x => x.Alias.ToLowerInvariant() == "admin") == false)
+                      return null;
+                            
+                    var content = source as IContent;
+        
+                    if (content.Id == 0) return null;
+                            
+                    return = new ContentApp
+                    {
+                        Alias = "example04",
+                        Name = "Example 04",
+                        Icon = "icon-piracy",
+                        View = "/App_Plugins/Example04/view.html",
+                        Weight = 0,
+                        ViewModel = "This is data set from the factory"
+                    };
+                }
+            }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Registering using Content App factory</h2>
+          <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
+            public class ExampleFourApp : IContentAppFactory
+            {
+                public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
+                {
+                    if (source is IMedia) return null;
+                    <mark> 
+                    if (userGroups.Any(
+                      x => x.Alias.ToLowerInvariant() == "admin") == false)
+                      return null;
+                    </mark>          
+                    var content = source as IContent;
+        
+                    if (content.Id == 0) return null;
+                            
+                    return = new ContentApp
+                    {
+                        Alias = "example04",
+                        Name = "Example 04",
+                        Icon = "icon-piracy",
+                        View = "/App_Plugins/Example04/view.html",
+                        Weight = 0,
+                        ViewModel = "This is data set from the factory"
+                    };
+                }
+            }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Registering using Content App factory</h2>
+          <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
+            public class ExampleFourApp : IContentAppFactory
+            {
+                public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
+                {
+                    if (source is IMedia) return null;
+                   
+                    if (userGroups.Any(
+                      x => x.Alias.ToLowerInvariant() == "admin") == false)
+                      return null;
+                    <mark>   
+                    var content = source as IContent;
+        
+                    if (content.Id == 0) return null;
+                   </mark>   
+                    return = new ContentApp
+                    {
+                        Alias = "example04",
+                        Name = "Example 04",
+                        Icon = "icon-piracy",
+                        View = "/App_Plugins/Example04/view.html",
+                        Weight = 0,
+                        ViewModel = "This is data set from the factory"
+                    };
+                }
+            }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section>
+          <h2>Registering using Content App factory</h2>
+          <pre class="small"><code class="csharp dimmed" data-trim data-noescape>
+            public class ExampleFourApp : IContentAppFactory
+            {
+                public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
+                {<mark>
+                    return = new ContentApp
+                    {
+                        Alias = "example04",
+                        Name = "Example 04",
+                        Icon = "icon-piracy",
+                        View = "/App_Plugins/Example04/view.html",
+                        Weight = 0,
+                        ViewModel = "This is data set from the factory"
+                    };
+                  </mark>
+                }
+            }
+                        </code></pre>
+          <p>
+            Example code on
+            <a
+              href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+              target="_blank"
+              >github</a
+            >
+          </p>
+        </section>
+        <section
+          data-hide-logo="true"
+          data-background-image="lib/images/example04-app.jpg"
+          data-background-size="100% auto"
+        ></section>
         <section
           class="dark-bg-slide"
           data-background="#ffc927"

@@ -525,6 +525,21 @@ code.dimmed .hljs-builtin-name {
   color: rgba(204, 147, 147, 0.25);
 }
 
+code.dimmed .hljs-title,
+code.dimmed .hljs-name,
+code.dimmed .hljs-selector-id,
+code.dimmed .hljs-selector-class,
+code.dimmed .hljs-section,
+code.dimmed .hljs-type {
+  color: rgba(239, 239, 143, 0.25);
+}
+
+code.dimmed .hljs-keyword,
+code.dimmed .hljs-selector-tag,
+code.dimmed .hljs-tag {
+  color: rgba(227, 206, 171, 0.25);
+}
+
 code.dimmed mark {
   /* background: transparent;*/
   background: #3f3f3f;
@@ -532,9 +547,29 @@ code.dimmed mark {
   font-size: 125%;
 }
 
+pre.small code.dimmed mark {
+  font-size: 175%;
+  line-height: 175%;
+}
+
 code.dimmed mark .hljs-deletion,
 code.dimmed mark .hljs-string,
 code.dimmed mark .hljs-built_in,
 code.dimmed mark .hljs-builtin-name {
   color: #cc9393;
+}
+
+code.dimmed mark .hljs-title,
+code.dimmed mark .hljs-name,
+code.dimmed mark .hljs-selector-id,
+code.dimmed mark .hljs-selector-class,
+code.dimmed mark .hljs-section,
+code.dimmed mark .hljs-type {
+  color: #efef8f;
+}
+
+code.dimmed mark .hljs-keyword,
+code.dimmed mark .hljs-selector-tag,
+code.dimmed mark .hljs-tag {
+  color: #e3ceab;
 }
