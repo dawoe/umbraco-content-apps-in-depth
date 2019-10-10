@@ -1,0 +1,15 @@
+{
+    "contentApps": [
+    {
+        "name": "Example 06", 
+        "alias": "example06", 
+        "weight": 0,
+        "icon": "icon-music", 
+        "view": "~/App_Plugins/Example06/view.html"
+    }
+    ],
+    "javascript": [
+        "~/App_Plugins/Example06/controller.js",
+        "~/App_Plugins/Example06/controller01.js"
+    ]
+}
