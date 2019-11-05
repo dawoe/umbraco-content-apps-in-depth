@@ -72,11 +72,11 @@
         </div>
       </section>
 
-    
+
       <section class="dark-bg-slide" data-background="#26FFC9" data-background-transition="convex">
         <h1>Why ???</h1>
       </section>
-     
+
       <section>
         <h2>
           In V7 there is no good way to display contextual data
@@ -121,7 +121,7 @@
       </section>
       <section data-hide-logo="true" data-background-image="lib/images/content-apps-default.jpg"
         data-background-size="100% auto"></section>
-        <section data-hide-logo="true" data-background-image="lib/images/v8-redirect-viewer.gif"
+      <section data-hide-logo="true" data-background-image="lib/images/v8-redirect-viewer.gif"
         data-background-size="100% auto"></section>
       <section>
         <h2>
@@ -147,7 +147,7 @@
         <p class="fragment">
           Can be used in context of media as well
         </p>
-      </section>              
+      </section>
       <section>
         <h2>
           Recap
@@ -155,7 +155,7 @@
         <ul>
           <li class="fragment">Displayed seperate from content/media</li>
           <li class="fragment">In context of the current item</li>
-          <li class="fragment">Should  not store data with content item</li>
+          <li class="fragment">Should not store data with content item</li>
         </ul>
       </section>
 
@@ -523,8 +523,8 @@
         </p>
       </section>
       <section>
-          <h2>Registering using Content App factory</h2>
-          <pre><code class="csharp" data-trim data-noescape>
+        <h2>Registering using Content App factory</h2>
+        <pre><code class="csharp" data-trim data-noescape>
               public class ExampleFourAppComposer : IUserComposer
               {
                   public void Compose(Composition composition)
@@ -533,17 +533,17 @@
                   }
               }
                           </code></pre>
-          <p>
-            Example code on
-            <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
-              target="_blank">github</a>
-          </p>
-        </section>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-04/"
+            target="_blank">github</a>
+        </p>
+      </section>
       <section data-hide-logo="true" data-background-image="lib/images/example04-app.jpg"
         data-background-size="100% auto"></section>
       <section>
         <h2>
-         Control access of<br /> 3rd party content apps ?
+          Control access of<br /> 3rd party content apps ?
         </h2>
         <ul>
           <li class="fragment">Possible when registered using package.manifest</li>
@@ -567,7 +567,7 @@
           $scope.model
         </h2>
         <img class="stretch" src="lib/images/scope-model.jpg" />
-      </section>     
+      </section>
       <section>
         <h2>
           $scope.content
@@ -622,6 +622,46 @@
       </section>
       <section data-hide-logo="true" data-background-image="lib/images/example05-app.jpg"
         data-background-size="100% auto"></section>
+
+      <section class="dark-bg-slide" data-background="#F5D9FF" data-background-transition="convex">
+        <h1>Notification badges</h1>
+      </section>
+      <section>
+        <h2>
+          Notification badges
+        </h2>
+        <p>A way to draw attention to your content app</p>
+        <p class="fragment">Will add a number next to your content app icon</p>
+        <p class="fragment">With options to set the background color</p>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/notification-badge.jpg"
+      data-background-size="100% auto"></section>
+      <section>
+        <h2>Notification badges</h2>
+        <pre><code class="javascript" data-trim contenteditable>
+          (function() {
+            "use strict";
+          
+            function ExampleSevenController($scope) {
+
+              $scope.model.badge = {
+                count: 5,
+                type: "warning"
+              };
+            }
+          
+            angular
+              .module("umbraco")
+              .controller("ExampleSevenController", ["$scope", ExampleSevenController]);
+          })();
+                      </code></pre>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-07/"
+            target="_blank">github</a>
+        </p>
+      </section>
+
       <section class="dark-bg-slide" data-background="#26FFC9" data-background-transition="convex">
         <h1>Pitfalls</h1>
       </section>
@@ -630,55 +670,56 @@
           Don't go crazy
         </h2>
         <p class="fragment">Limit the amount of content apps</p>
-      </section>      
+      </section>
       <section data-hide-logo="true" data-background-image="lib/images/app-over-kill.jpg"
         data-background-size="100% auto"></section>
-        <section>
-            <h2>
-              Don't go crazy
-            </h2>
-            <p>Limit the amount of content apps</p>
-            <p>Be cautios when changing available data</p>
-          </section>
-          <section data-hide-logo="true" data-background-image="lib/images/app-disco.gif"
-      data-background-size="100% auto"></section>
+      <section>
+        <h2>
+          Don't go crazy
+        </h2>
+        <p>Be cautios when changing available data</p>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/app-disco.gif" data-background-size="100% auto">
+      </section>
       <section class="dark-bg-slide" data-background="#F5D9FF" data-background-transition="convex">
         <h1>Need inspiration?</h1>
       </section>
       <section>
         <h2>
           Social sharing preview
-        </h2>       
+        </h2>
       </section>
       <section>
         <h2>
           Page speed analysis
-        </h2>       
-      </section>    
+        </h2>
+      </section>
       <section>
         <h2>
           Notes or task list
-        </h2>       
-      </section> 
+        </h2>
+      </section>
       <section>
         <h2>
           SEO Check
-        </h2>       
-      </section>      
+        </h2>
+      </section>
       <section>
         <h2>
           Use your imagination...
-        </h2>       
-      </section> 
+        </h2>
+      </section>
       <section class="dark-bg-slide" data-background="#ffc927" data-background-transition="convex">
         <h1>Questions?</h1>
       </section>
-      <section class="dark-bg-slide"  data-background-transition="convex">
-        <h1>Thank you!</h1>     
+      <section class="dark-bg-slide" data-background-transition="convex">
+        <h1>Thank you!</h1>
       </section>
-      <section class="dark-bg-slide"  data-background-transition="convex">
+      <section class="dark-bg-slide" data-background-transition="convex">
         <h2>Slides</h2>
-        <p><a href="http://dawoe.github.io/umbraco-content-apps-in-depth/index.html">http://dawoe.github.io/umbraco-content-apps-in-depth/index.html</a></p>
+        <p><a
+            href="http://dawoe.github.io/umbraco-content-apps-in-depth/">http://dawoe.github.io/umbraco-content-apps-in-depth/</a>
+        </p>
       </section>
     </div>
   </div>
