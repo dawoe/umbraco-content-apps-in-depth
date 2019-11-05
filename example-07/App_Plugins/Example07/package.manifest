@@ -1,0 +1,14 @@
+{
+    "contentApps": [
+    {
+        "name": "Example 07", 
+        "alias": "example07", 
+        "weight": 0,
+        "icon": "icon-medicine", 
+        "view": "~/App_Plugins/Example07/view.html"
+    }
+    ],
+    "javascript": [
+        "~/App_Plugins/Example07/controller.js"
+    ]
+}
