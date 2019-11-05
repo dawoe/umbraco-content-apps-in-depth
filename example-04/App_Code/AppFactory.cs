@@ -12,7 +12,7 @@ namespace ContentAppsInDepth
     {
         public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
         {
-            if (source is IMedia)
+            if (!(source is IContent))
             {
                 return null;
             }
