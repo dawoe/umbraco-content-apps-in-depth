@@ -1,0 +1,6 @@
+{
+    "javascript": [
+        "~/App_Plugins/TaskList/controller.js",
+        "~/App_Plugins/TaskList/dialogs/taskdialogcontroller.js"
+    ]
+}

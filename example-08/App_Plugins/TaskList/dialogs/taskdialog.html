@@ -1,0 +1,54 @@
+﻿<div ng-controller="TaskDialogController as vm">
+    <umb-editor-view>
+        <umb-editor-header
+            name="vm.title"
+            name-locked="true"
+            hide-alias="true"
+            hide-icon="true"
+            hide-description="true"
+        >
+        </umb-editor-header>
+    </umb-editor-view>
+
+    <umb-editor-container>
+        <form novalidate name="contentForm" val-form-manager>
+            <umb-property property="{ label : 'Title'}">
+                <input type="text" name="title" ng-model="vm.task.title" />
+            </umb-property>
+            <umb-property property="{ label : 'Description'}">
+                <textarea name="description" ng-model="vm.task.description"></textarea>
+            </umb-property>
+            <umb-property property="{ label : 'Assigned user'}">
+                <p>{{vm.user.name}}</p>
+                <a href=""
+                   style="min-width: 100%;"
+                   class="umb-node-preview-add"
+                   ng-click="vm.selectUser()"
+                   prevent-default>
+                    <localize key="general_add">Add</localize>
+                </a>
+            </umb-property>
+        </form>
+    </umb-editor-container>
+
+    <umb-editor-footer>
+        <umb-editor-footer-content-right>
+            <umb-button
+                type="button"
+                button-style="link"
+                shortcut="esc"
+                label-key="general_close"
+                action="vm.close()"
+            >
+            </umb-button>
+
+            <umb-button
+                type="button"
+                button-style="success"
+                label-key="general_submit"
+                action="vm.submit()"
+            >
+            </umb-button>
+        </umb-editor-footer-content-right>
+    </umb-editor-footer>
+</div>

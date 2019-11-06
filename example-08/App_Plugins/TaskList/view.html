@@ -1,0 +1,37 @@
+﻿<div ng-controller="TaskListAppController as vm">
+    
+    <div class="umb-table">
+        <div class="umb-table-head">
+            <div class="umb-table-row">
+                <div class="umb-table-cell not-fixed">
+                    Name
+                </div>
+
+            </div>
+        </div>
+
+        <div class="umb-table-body">
+
+            <div class="umb-table-row" ng-repeat="item in vm.tasks">
+                <div class="umb-table-cell not-fixed">
+                    {{item.title}}
+                </div>
+            </div>
+
+        </div>
+        <div class="umb-table-foot">
+            <div class="umb-table-row">
+                <div class="umb-table-cell not-fixed">
+                    <a href=""
+                       style="min-width: 100%;"
+                       class="umb-node-preview-add"
+                       ng-click="vm.addTask()"
+                       prevent-default>
+                        <localize key="general_add">Add</localize>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
