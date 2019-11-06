@@ -635,7 +635,7 @@
         <p class="fragment">With options to set the background color</p>
       </section>
       <section data-hide-logo="true" data-background-image="lib/images/notification-badge.jpg"
-      data-background-size="100% auto"></section>
+        data-background-size="100% auto"></section>
       <section>
         <h2>Notification badges</h2>
         <pre><code class="javascript" data-trim contenteditable>
@@ -661,7 +661,255 @@
             target="_blank">github</a>
         </p>
       </section>
+      <section class="dark-bg-slide" data-background="#FFC927" data-background-transition="convex">
+        <h1>Putting it all together</h1>
+      </section>
+      <section>
+        <h2>A "real" world example</h2>
+        <p class="fragment">Building a task list content app</p>
+      </section>
+      <section data-hide-logo="true" data-background-image="lib/images/tasklist-content-app.gif"
+        data-background-size="100% auto"></section>
 
+      <section>
+        <h2>What do we need to do</h2>
+        <ul>
+          <li class="fragment">Set up a database table <span class="fragment">=> <a
+                href="https://our.umbraco.com/documentation/Extending/Database/" target="_blank">Migrations</a></span>
+          </li>
+          <li class="fragment">Create a API for creating tasks</li>
+          <li class="fragment">Register content app <span class="fragment">=> ContentAppFactory</span></li>
+          <li class="fragment">Build the UI</li>
+        </ul>
+      </section>
+      <section>
+        <h2>Define a database model</h2>
+        <pre class="small"><code class="csharp" data-trim data-noescape>
+                    [TableName("CAID_Tasks")]
+                    [PrimaryKey("id", AutoIncrement = false)]
+                    [DataContract(Name = "task")]
+                    public class Task
+                    {
+                        [Column("id")]
+                        [PrimaryKeyColumn(AutoIncrement = false, Name = "PK_CAID_Tasks")]
+                        [DataMember(Name = "id")]
+                        public Guid Id { get; set; }
+                        
+                        [Column("createdate")]
+                        [NullSetting(NullSetting = NullSettings.NotNull)]
+                        [DataMember(Name = "createDate")]
+                        public DateTime CreateDate { get; set; }
+                
+                                       
+                        [Column("contentid")]
+                        [NullSetting(NullSetting = NullSettings.NotNull)]
+                        [DataMember(Name = "contentId")]
+                        public int ContentId { get; set; }
+
+                        ...
+                    }
+                                </code></pre>
+        <p>
+          Example code on
+          <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-08/"
+            target="_blank">github</a>
+        </p>
+      </section>
+      <section>
+          <h2>Creat a migration</h2>
+          <pre class=""><code class="csharp" data-trim data-noescape>
+              public class CreateTableMigration : MigrationBase
+              {
+                  public CreateTableMigration(IMigrationContext context)
+                      : base(context)
+                  {
+                  }
+                  public override void Migrate()
+                  {
+                      this.Create.Table&lt;Task&gt;().Do();
+                  }
+              }
+                                  </code></pre>
+          <p>
+            Example code on
+            <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-08/"
+              target="_blank">github</a>
+          </p>
+        </section>
+        <section>
+            <h2>Define a migration plan</h2>
+            <pre class=""><code class="csharp" data-trim data-noescape>
+                public class TaskListMigrationPlan : Umbraco.Core.Migrations.MigrationPlan
+                {
+                    public TaskListMigrationPlan()
+                        : base("TaskList")
+                    {
+                        this.InitialInstall();
+                    }
+                    public override string InitialState => string.Empty;
+                    private void InitialInstall()
+                    {
+                        this.From(this.InitialState)
+                            .To<CreateTableMigration>("1.0.0-tasklisttable");
+                    }
+                }
+                                    </code></pre>
+            <p>
+              Example code on
+              <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-08/"
+                target="_blank">github</a>
+            </p>
+          </section>
+          <section>
+              <h2>Use a component to execute the migration plan</h2>
+              <pre class=""><code class="csharp" data-trim data-noescape>
+                  public class MigrationComponent : IComponent
+                  {
+                     public void Initialize()
+                      {                         
+                          var upgrader = new Upgrader(new TaskListMigrationPlan());
+
+                          upgrader.Execute(this.scopeProvider, this.migrationBuilder, this.keyValueService, this.logger);
+                      }                      
+                  }
+                                      </code></pre>
+              <p>
+                Example code on
+                <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-08/"
+                  target="_blank">github</a>
+              </p>
+            </section>
+            <section>
+                <h2>Create a API for creating tasks</h2>
+                <pre class=""><code class="csharp" data-trim data-noescape>
+                    public class TaskListApiController : UmbracoAuthorizedApiController
+                    {
+                       [HttpPost]
+                        public HttpResponseMessage CreateTask(Task task)
+                        {
+                            using (var scope = this.scopeProvider.CreateScope(autoComplete: true))
+                            {
+                              scope.Database.Insert(task);
+                            }                  
+                            
+                            return this.Request.CreateResponse(System.Net.HttpStatusCode.OK, task);
+                        }   
+                    }
+                                        </code></pre>
+                <p>
+                  Example code on
+                  <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-08/"
+                    target="_blank">github</a>
+                </p>
+              </section>
+              <section>
+                  <h2>Register content app</h2>
+                  <pre class="small"><code class="csharp" data-trim data-noescape>
+                      public class TaskListAppFactory : IContentAppFactory
+                      {
+                          public ContentApp GetContentAppFor(object source, IEnumerable<IReadOnlyUserGroup> userGroups)
+                          {
+                             var tasks = new List<Task>();
+                  
+                              using (var scope = this.scopeProvider.CreateScope(autoComplete: true))
+                              {
+                                  tasks = scope.Database.Fetch<Task>().ToList();
+                              }
+                  
+                              return new ContentApp
+                                         {
+                                             Alias = "tasklistapp",
+                                             Icon = "icon-notepad",
+                                             Name = "Tasks",
+                                             View = "/App_Plugins/TaskList/view.html",
+                                             ViewModel = tasks
+                                         };
+                          }
+                      }
+                  
+                                          </code></pre>
+                  <p>
+                    Example code on
+                    <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-08/"
+                      target="_blank">github</a>
+                  </p>
+                </section>
+                <section>
+                    <h2>Content app controller - list binding</h2>
+                    <pre class="small"><code class="javascript" data-trim data-noescape>
+                        function TaskListAppController($scope, $http, umbRequestHelper, notificationsService, editorService, authResource) {
+                              var vm = this;
+                              vm.tasks = [];                            
+
+                              function init() {
+                                  vm.tasks = $scope.model.viewModel;
+
+                                  authResource.getCurrentUser()
+                                      .then(function (data) {
+                                          var userId = data.id;
+
+                                          var assignedTasks = _.filter(vm.tasks,
+                                              function(t) {
+                                                  return t.assignedTo === userId;
+                                              });
+
+                                          if (assignedTasks.length > 0) {
+                                              $scope.model.badge = {
+                                                  count: assignedTasks.length,
+                                                  type: 'alert'
+                                              };
+                                          }
+                                      });
+                              }
+
+                              init();
+                          }
+                    
+                                            </code></pre>
+                    <p>
+                      Example code on
+                      <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-08/"
+                        target="_blank">github</a>
+                    </p>
+                  </section>
+                  <section>
+                      <h2>Content app controller - create dialog</h2>
+                      <pre class="small"><code class="javascript" data-trim data-noescape>
+                          function TaskListAppController($scope, $http, umbRequestHelper, notificationsService, editorService, authResource) {
+                                vm.addTask = function () {
+                                    var task = {
+                                        ...  
+                                    };
+
+                                    var taskDialog = {
+                                      task: angular.copy(task),
+                                      view: "/App_Plugins/TaskList/dialogs/taskdialog.html",
+                                      submit: function (model) {
+                                        var data = JSON.stringify(model.task);
+  
+                                        umbRequestHelper.resourcePromise($http.post(apiUrl + "CreateTask", data), "Failed to create task")
+                                          .then(function(response) {
+                                              vm.tasks.push(response);
+                                              notificationsService.success("Task created");
+                                          });
+                                        editorService.close();
+                                      },
+                                      close: function () {
+                                          editorService.close();
+                                      }
+                                    };
+
+                                      editorService.open(taskDialog);                                                                     
+                                };                                                           
+                            }
+                      
+                                              </code></pre>
+                      <p>
+                        Example code on
+                        <a href="https://github.com/dawoe/umbraco-content-apps-in-depth/tree/master/example-08/"
+                          target="_blank">github</a>
+                      </p>
+                    </section>
       <section class="dark-bg-slide" data-background="#26FFC9" data-background-transition="convex">
         <h1>Pitfalls</h1>
       </section>
